@@ -44,13 +44,13 @@ public class Jetty12Test
         return switch (uriConstruction)
         {
             case SPRING ->
-                // URI using Jersey techniques - This doesn't work, as this encodes the URI again.
+                // URI using Spring techniques - This doesn't work, as this encodes the URI again.
                 UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/foo=bar%2Fbaz=baz")
                     .encode()
                     .build()
                     .toUri();
             case SPRING_NOENCODE ->
-                // URI using Jersey techniques, skipping .encode() - This doesn't work, as this STILL encodes the `%` in the URI again.
+                // URI using Spring techniques, skipping .encode() - This doesn't work, as this STILL encodes the `%` in the URI again.
                 UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/foo=bar%2Fbaz=baz")
                     .build()
                     .toUri();
