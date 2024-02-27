@@ -8,7 +8,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,8 @@ public class Jetty12Test
 
     public enum UriConstruction
     {
-        JERSEY,
-        JERSEY_NOENCODE,
+        SPRING,
+        SPRING_NOENCODE,
         URI_DISTINCT_PARAMS,
         URI_SSP_PARAMS,
         URI_SINGLE_PARAM
@@ -44,13 +43,13 @@ public class Jetty12Test
     {
         return switch (uriConstruction)
         {
-            case JERSEY ->
+            case SPRING ->
                 // URI using Jersey techniques - This doesn't work, as this encodes the URI again.
                 UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/foo=bar%2Fbaz=baz")
                     .encode()
                     .build()
                     .toUri();
-            case JERSEY_NOENCODE ->
+            case SPRING_NOENCODE ->
                 // URI using Jersey techniques, skipping .encode() - This doesn't work, as this STILL encodes the `%` in the URI again.
                 UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/foo=bar%2Fbaz=baz")
                     .build()
